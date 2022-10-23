@@ -1,5 +1,4 @@
-from location import Location,Value
-import sys
+from location import Location
 
 class Board:
 	def __init__(self):
@@ -12,17 +11,12 @@ class Board:
 		self.rows=rows
 
 	def printBoard(self):
-		#First block gap
-		print("   ",end="")
-		#Column numbers
-		for colNum in range(len(self.rows)):
-			print("| "+str(colNum)+" ",end="")
 		#Each consecutive row
 		for rowNum,row in enumerate(self.rows):
 			#Row seperator
-			print("\n---------------")
-			#Row header
-			print(" "+str(rowNum)+" ",end="")
+			print("-------------")
 			#Each column in row
 			for location in row:
 				print("| "+str(location.value.value)+" ",end="")
+			print("|")
+		print("-------------")
