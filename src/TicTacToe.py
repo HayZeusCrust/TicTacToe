@@ -1,3 +1,4 @@
+from board import Board
 from game import Game
 import sys
 
@@ -29,13 +30,13 @@ def main():
 	"▓▓▓▓▓░░▄▀░░▓▓▓▓▓░░░░▄▀░░░░▓░░▄▀░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▄▀░░▓▓▓▓▓░░▄▀░░▓▓░░▄▀░░▓░░▄▀░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▄▀░░▓▓▓▓▓░░▄▀░░░░░░▄▀░░▓░░▄▀░░░░░░░░░░▓\n"+\
 	"▓▓▓▓▓░░▄▀░░▓▓▓▓▓░░▄▀▄▀▄▀░░▓░░▄▀▄▀▄▀▄▀▄▀░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▄▀░░▓▓▓▓▓░░▄▀░░▓▓░░▄▀░░▓░░▄▀▄▀▄▀▄▀▄▀░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▄▀░░▓▓▓▓▓░░▄▀▄▀▄▀▄▀▄▀░░▓░░▄▀▄▀▄▀▄▀▄▀░░▓\n"+\
 	"▓▓▓▓▓░░░░░░▓▓▓▓▓░░░░░░░░░░▓░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓░░░░░░▓▓░░░░░░▓░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓░░░░░░░░░░░░░░▓░░░░░░░░░░░░░░▓\n"+\
-	"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n")
+	"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓")
 	#Continue game until user leaves
 	while True:
 		#Menu select
 		menuSelect=(-1)
-		while not(int(menuSelect)>0 and int(menuSelect)<=6):
-			menuSelect=input("Please select an option:\n\n"+\
+		while not(int(menuSelect)>=1 and int(menuSelect)<=6):
+			menuSelect=input("\nMain Menu:\n"+\
 			"1. 1 Player\n"+\
 			"2. 2 Players\n"+\
 			"3. Options\n"+\
@@ -54,8 +55,7 @@ def main():
 					game.play()
 				#List game options
 				case "3":
-					# TODO: Add options menu
-					print("Options WIP")
+					optionsMenu()
 				#Print instructions
 				case "4":
 					# TODO: Include instructions
@@ -67,10 +67,35 @@ def main():
 				#Exit game
 				case "6":
 					sys.exit(0)
-				#You broke the game lol
+				#Didn't input a numerical answer
 				case _:
-					print("How did we get here?")
-					sys.exit(-1)
+					print("Didn't select a numerical option")
+					menuSelect=(-1)
+
+def optionsMenu():
+		optionSelect=(-1)
+		while not(int(optionSelect)>=1 and int(optionSelect)<=3):
+			optionSelect=input("\nOptions:\n"+\
+			"1. Board Size: "+str(Board.numRows)+"x"+str(Board.numCols)+"\n"+\
+			"2. AI Difficulty\n"+\
+			"3. Return to Menu\n\n")
+			#Resolve option
+			match optionSelect:
+				#Change board size
+				case "1":
+					Board.changeBoardSize()
+					optionSelect=(-1)
+				#Change difficulty of AI
+				case "2":
+					# TODO: still code AI
+					print("No AI yet ;-;")
+				#Return to menu
+				case "3":
+					pass
+				#Didn't input a numerical answer
+				case _:
+					print("Didn't select a numerical option")
+					optionSelect=(-1)
 
 if __name__=="__main__":
 	main()
