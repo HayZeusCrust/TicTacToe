@@ -29,24 +29,52 @@ class Game:
 		while True:
 			#show current board
 			self.board.printBoard()
-			
 			#Take player move
 			moveValid=False
+			move=""
 			while not moveValid:
-				moveValid,error=isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"))
+				moveValid,error,move=isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"),self.board)
 				print(error)
-			
+			self.board.rows[move[0]][move[1]].value=currentPlayer.mark
+
+			# TODO : add win check
+
 			#Swap active players
 			if currentPlayer==self.playerX:
-				return self.playerO
+				currentPlayer=self.playerO
 			else:
-				return self.playerX
+				currentPlayer=self.playerX
 				
 #Validate move selection
-def isValidMove(move):
+def isValidMove(move,board):
+	#Check cords are separated by a space
 	if " " not in move:
-		return False,"Move coordinates are not separated by a space"
+		return False,"Row and column are not separated by a space",move
 	move=move.split(" ")
-	if len(move>2):
-		return False,""
-	return True,""
+	#Check only 2 cords are provided
+	if len(move)!=2:
+		return False,"Provide a row and a column",move
+	#Check only ints are provided
+	try:
+		move[0]=int(move[0])-1
+		move[1]=int(move[1])-1
+	except ValueError:
+		return False,"Row and column must be integers",move
+	#Check move is in board range
+	if not(0<=move[0]<Board.numRows and 0<=move[1]<Board.numCols):
+		return False,"Row and column are out of board range",move
+	#Check move space is empty
+	if board.rows[move[0]][move[1]].value!=Value.EMPTY:
+		return False,"Row and column are not empty",move
+	return True,"Valid move",move
+
+# TODO : Check win
+"""Win conditions:
+3x3 standard
+All others
+get 4 corners
+make a square
+get shorter of two dimensions in a row
+"""
+def checkWin():
+	pass
