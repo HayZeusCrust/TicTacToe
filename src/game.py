@@ -33,7 +33,7 @@ class Game:
 			#Take player move
 			moveValid=False
 			while not moveValid:
-				moveValid,error=self.isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"))
+				moveValid,error=isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"))
 				print(error)
 			
 			#Swap active players
@@ -42,11 +42,11 @@ class Game:
 			else:
 				return self.playerX
 				
-	#Validate move selection
-	def isValidMove(self,move):
-		if " " not in move:
-			return False,"Move coordinates are not seperated by a space"
-		move=move.split(" ")
-		if len(move>2):
-			return False,""
-		return True,""
+#Validate move selection
+def isValidMove(move):
+	if " " not in move:
+		return False,"Move coordinates are not separated by a space"
+	move=move.split(" ")
+	if len(move>2):
+		return False,""
+	return True,""
