@@ -33,7 +33,7 @@ class Board:
 def changeBoardSize():
 	newRowSize=(-1)
 	newColSize=(-1)
-	while not(3<=int(newRowSize)<=10):
+	while not(3<=newRowSize<=10):
 		newRowSize=input("New number of board rows: (Min: 3, Max: 10)\n")
 		try:
 			newRowSize=int(newRowSize)
