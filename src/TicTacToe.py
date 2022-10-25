@@ -2,6 +2,10 @@ from board import Board,changeBoardSize
 from game import Game
 import sys
 
+# TODO : Make screen clear before prints
+# TODO : automatically change window to be correct size
+# TODO : turn into an exe that will open cmd on its own
+
 def main():
 	#Welcome message
 	print("\n"+

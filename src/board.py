@@ -16,19 +16,24 @@ class Board:
 			rows.append(currentRow)
 		self.rows=rows
 	
+	# TODO : Fix printing for 10x10 boards
 	#Prints the game board
 	def printBoard(self):
+		#Column headers
+		print("    ",end="")
+		for col in range(Board.numCols):
+			print(" "+str(col+1)+"  ",end="")
+		#Row seperator
+		print("\n   "+"-"*(4*Board.numCols+1))
 		#Print board row by row
 		for rowNum,row in enumerate(self.rows):
-			#Row seperator
-			print("-"*(4*Board.numCols+1))
+			#Row headers
+			print(" "+str(rowNum+1)+" |",end="")
 			#Print each column in a row
 			for location in row:
-				print("| "+str(location.value.value)+" ",end="")
-			#Cap columns
-			print("|")
-		#Cap rows
-		print("-"*(4*Board.numCols+1))
+				print(" "+str(location.value.value)+" |",end="")
+			#Cap rows
+			print("\n   "+"-"*(4*Board.numCols+1))
 
 def changeBoardSize():
 	newRowSize=(-1)

@@ -37,8 +37,9 @@ class Game:
 				print(error)
 			self.board.rows[move[0]][move[1]].value=currentPlayer.mark
 
-			# TODO : add win check
-
+			if checkWin(move[0],move[1],self.board,currentPlayer.mark):
+				# TODO : Victory screen
+				break
 			#Swap active players
 			if currentPlayer==self.playerX:
 				currentPlayer=self.playerO
@@ -76,5 +77,56 @@ get 4 corners
 make a square
 get shorter of two dimensions in a row
 """
-def checkWin():
-	pass
+def checkWin(moveRow,moveCol,board,playerMark):
+	#Standard Tic-Tac-Toe
+	if board.numRows==board.numCols==3:
+		if(checkRowWin(moveRow,moveCol,board,playerMark,3)):
+			return True
+	#Variable size boards
+	else:
+		pass
+		#Check 4 corner win
+		#Check square win
+		#Check 4 in a row win
+		# TODO : ^^^
+	
+	#Check board full if no winner
+	
+def checkRowWin(moveRow,moveCol,board,playerMark,numberInRow):
+	count=1
+	#Up and Down
+	try:
+		while True:
+			if board.rows[NIE(moveRow-1)][moveCol].value==playerMark:
+				moveRow-=1
+				count+=1
+			else:
+				break
+	except IndexError:
+		pass
+	try:
+		while True:
+			if board.rows[NIE(moveRow-1)][moveCol].value==playerMark:
+				moveRow-=1
+				count+=1
+			else:
+				break
+	except IndexError:
+		pass
+	if count>=numberInRow:
+		return True
+	#left and Right
+	count=1
+	
+	
+	#UpRight and DownLeft
+	
+	
+	#UpLeft and DownRight
+	
+	
+#Negative Index Error
+def NIE(index):
+	if index<0:
+		raise IndexError
+	return index
