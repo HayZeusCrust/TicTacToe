@@ -5,6 +5,7 @@ class Board:
 	#Class variables
 	numRows=3
 	numCols=3
+	winSize=3
 	
 	#Board constructor
 	def __init__(self):
@@ -52,3 +53,7 @@ def changeBoardSize():
 			newColSize=(-1)
 	Board.numRows=newRowSize
 	Board.numCols=newColSize
+	if newRowSize==3 or newColSize==3:
+		Board.winSize=3
+	else:
+		Board.winSize=4

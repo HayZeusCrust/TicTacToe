@@ -36,7 +36,6 @@ class Game:
 				moveValid,error,move=isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"),self.board)
 				print(error)
 			self.board.rows[move[0]][move[1]].value=currentPlayer.mark
-
 			if checkWin(move[0],move[1],self.board,currentPlayer.mark):
 				# TODO : Victory screen
 				break
@@ -80,7 +79,7 @@ get shorter of two dimensions in a row
 def checkWin(moveRow,moveCol,board,playerMark):
 	#Standard Tic-Tac-Toe
 	if board.numRows==board.numCols==3:
-		if(checkRowWin(moveRow,moveCol,board,playerMark,3)):
+		if(checkRowWin(moveRow,moveCol,board,playerMark)):
 			return True
 	#Variable size boards
 	else:
@@ -92,38 +91,53 @@ def checkWin(moveRow,moveCol,board,playerMark):
 	
 	#Check board full if no winner
 	
-def checkRowWin(moveRow,moveCol,board,playerMark,numberInRow):
-	count=1
-	#Up and Down
+def checkRowWin(moveRow,moveCol,board,playerMark):
+	"""
 	try:
 		while True:
 			if board.rows[NIE(moveRow-1)][moveCol].value==playerMark:
 				moveRow-=1
 				count+=1
+				print("Count: "+str(count))
 			else:
 				break
 	except IndexError:
 		pass
 	try:
 		while True:
-			if board.rows[NIE(moveRow-1)][moveCol].value==playerMark:
-				moveRow-=1
+			if board.rows[moveRow+1][moveCol].value==playerMark:
+				moveRow+=1
 				count+=1
 			else:
 				break
 	except IndexError:
 		pass
-	if count>=numberInRow:
+	if count>=board.winSize:
 		return True
-	#left and Right
-	count=1
-	
-	
-	#UpRight and DownLeft
-	
-	
-	#UpLeft and DownRight
-	
+	"""
+	for verticalDirection in range(-1,1):
+		for horizontalDirection in range(-1,2):
+			count=1
+			checkRow=moveRow
+			checkCol=moveCol
+			if verticalDirection==horizontalDirection==0:
+				break
+			for swap in range(-1,2,2):
+				try:
+					print("("+str(verticalDirection*swap)+","+str(horizontalDirection*swap)+") "+str(board.rows[NIE(checkRow+verticalDirection*swap)][NIE(checkCol+horizontalDirection*swap)].value))
+					while board.rows[NIE(checkRow+verticalDirection*swap)][NIE(checkCol+horizontalDirection*swap)].value==playerMark:
+						checkRow+=verticalDirection*swap
+						checkCol+=horizontalDirection*swap
+						count+=1					
+				except IndexError:
+					pass
+			print("COUNT: "+str(count))
+			if count>=board.winSize:
+				return True
+	return False
+
+def checkDirection():
+	pass
 	
 #Negative Index Error
 def NIE(index):
