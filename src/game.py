@@ -17,7 +17,7 @@ class Game:
 			if playerName=="":
 				playerName="Player O"
 			self.playerO=Player(playerName,Value.O)
-		#Set player O to AI if only 1 player
+		#TODO : Set player O to AI if only 1 player
 		else:
 			pass
 			#playerO=AI
@@ -36,9 +36,14 @@ class Game:
 				moveValid,error,move=isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"),self.board)
 				print(error)
 			self.board.rows[move[0]][move[1]].value=currentPlayer.mark
+			self.board.removeSpace()
 			if checkWin(move[0],move[1],self.board,currentPlayer.mark):
 				# TODO : Victory screen
 				self.board.printBoard()
+				break
+			if self.board.remainingSpaces==0:
+				# TODO : Tie screen
+				print("Yall sucked lol")
 				break
 			#Swap active players
 			if currentPlayer==self.playerX:
@@ -69,23 +74,28 @@ def isValidMove(move,board):
 		return False,"Row and column are not empty",move
 	return True,"Valid move",move
 
-# TODO : Check win
-"""Win conditions:
-get 4 corners
-make a square
-get shorter of two dimensions in a row
-"""
 def checkWin(moveRow,moveCol,board,playerMark):
 	#Check in a row win
 	if checkRowWin(moveRow,moveCol,board,playerMark):
 		return True
+	#Non 3x3 wins
 	if board.numRows==board.numCols!=3:
-		pass
 		#Check 4 corner win
+		if board.rows[0][0].value==playerMark and \
+		board.rows[0][board.numCols-1].value==playerMark and \
+		board.rows[board.numRows-1][0].value==playerMark and \
+		board.rows[board.numRows-1][board.numCols-1].value==playerMark:
+			return True
 		#Check square win
-		# TODO : ^^^
+		for horizontalDirection in range(-1,2,2):
+			for verticalDirection in range(-1,2,2):
+				try:
+					if board.rows[NIE(moveRow+horizontalDirection)][NIE(moveCol+verticalDirection)].value==playerMark:
+						if board.rows[NIE(moveRow+horizontalDirection)][moveCol].value==board.rows[moveRow][NIE(moveCol+verticalDirection)].value==playerMark:
+							return True
+				except IndexError:
+					pass
 	return False
-	# TODO : Check board full if no winner
 	
 def checkRowWin(moveRow,moveCol,board,playerMark):
 	for horizontalDirection in range(-1,1):

@@ -16,6 +16,7 @@ class Board:
 				currentRow.append(Location(row,col))
 			rows.append(currentRow)
 		self.rows=rows
+		self.remainingSpaces=Board.numRows*Board.numCols
 	
 	# TODO : Fix printing for 10x10 boards
 	#Prints the game board
@@ -35,6 +36,9 @@ class Board:
 				print(" "+str(location.value.value)+" |",end="")
 			#Cap rows
 			print("\n   "+"-"*(4*Board.numCols+1))
+
+	def removeSpace(self):
+		self.remainingSpaces-=1
 
 def changeBoardSize():
 	newRowSize=(-1)
@@ -57,3 +61,4 @@ def changeBoardSize():
 		Board.winSize=3
 	else:
 		Board.winSize=4
+	
