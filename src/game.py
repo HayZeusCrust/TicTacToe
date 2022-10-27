@@ -79,7 +79,7 @@ get shorter of two dimensions in a row
 def checkWin(moveRow,moveCol,board,playerMark):
 	#Standard Tic-Tac-Toe
 	if board.numRows==board.numCols==3:
-		if(checkRowWin(moveRow,moveCol,board,playerMark)):
+		if checkRowWin(moveRow,moveCol,board,playerMark):
 			return True
 	#Variable size boards
 	else:
@@ -92,31 +92,8 @@ def checkWin(moveRow,moveCol,board,playerMark):
 	#Check board full if no winner
 	
 def checkRowWin(moveRow,moveCol,board,playerMark):
-	"""
-	try:
-		while True:
-			if board.rows[NIE(moveRow-1)][moveCol].value==playerMark:
-				moveRow-=1
-				count+=1
-				print("Count: "+str(count))
-			else:
-				break
-	except IndexError:
-		pass
-	try:
-		while True:
-			if board.rows[moveRow+1][moveCol].value==playerMark:
-				moveRow+=1
-				count+=1
-			else:
-				break
-	except IndexError:
-		pass
-	if count>=board.winSize:
-		return True
-	"""
-	for verticalDirection in range(-1,1):
-		for horizontalDirection in range(-1,2):
+	for horizontalDirection in range(-1,1):
+		for verticalDirection in range(-1,2):
 			count=1
 			checkRow=moveRow
 			checkCol=moveCol
@@ -124,10 +101,9 @@ def checkRowWin(moveRow,moveCol,board,playerMark):
 				break
 			for swap in range(-1,2,2):
 				try:
-					print("("+str(verticalDirection*swap)+","+str(horizontalDirection*swap)+") "+str(board.rows[NIE(checkRow+verticalDirection*swap)][NIE(checkCol+horizontalDirection*swap)].value))
-					while board.rows[NIE(checkRow+verticalDirection*swap)][NIE(checkCol+horizontalDirection*swap)].value==playerMark:
-						checkRow+=verticalDirection*swap
-						checkCol+=horizontalDirection*swap
+					while board.rows[NIE(checkRow+horizontalDirection*swap)][NIE(checkCol+verticalDirection*swap)].value==playerMark:
+						checkRow+=horizontalDirection*swap
+						checkCol+=verticalDirection*swap
 						count+=1					
 				except IndexError:
 					pass
@@ -135,9 +111,6 @@ def checkRowWin(moveRow,moveCol,board,playerMark):
 			if count>=board.winSize:
 				return True
 	return False
-
-def checkDirection():
-	pass
 	
 #Negative Index Error
 def NIE(index):
