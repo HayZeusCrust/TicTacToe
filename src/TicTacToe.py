@@ -5,6 +5,7 @@ import sys
 # TODO : Make screen clear before prints
 # TODO : automatically change window to be correct size
 # TODO : turn into an exe that will open cmd on its own
+# TODO : Game with create a config file if there isn't one to save settings
 
 def main():
 	#Welcome message

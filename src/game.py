@@ -38,6 +38,7 @@ class Game:
 			self.board.rows[move[0]][move[1]].value=currentPlayer.mark
 			if checkWin(move[0],move[1],self.board,currentPlayer.mark):
 				# TODO : Victory screen
+				self.board.printBoard()
 				break
 			#Swap active players
 			if currentPlayer==self.playerX:
@@ -70,44 +71,38 @@ def isValidMove(move,board):
 
 # TODO : Check win
 """Win conditions:
-3x3 standard
-All others
 get 4 corners
 make a square
 get shorter of two dimensions in a row
 """
 def checkWin(moveRow,moveCol,board,playerMark):
-	#Standard Tic-Tac-Toe
-	if board.numRows==board.numCols==3:
-		if checkRowWin(moveRow,moveCol,board,playerMark):
-			return True
-	#Variable size boards
-	else:
+	#Check in a row win
+	if checkRowWin(moveRow,moveCol,board,playerMark):
+		return True
+	if board.numRows==board.numCols!=3:
 		pass
 		#Check 4 corner win
 		#Check square win
-		#Check 4 in a row win
 		# TODO : ^^^
-	
-	#Check board full if no winner
+	return False
+	# TODO : Check board full if no winner
 	
 def checkRowWin(moveRow,moveCol,board,playerMark):
 	for horizontalDirection in range(-1,1):
 		for verticalDirection in range(-1,2):
 			count=1
-			checkRow=moveRow
-			checkCol=moveCol
 			if verticalDirection==horizontalDirection==0:
 				break
 			for swap in range(-1,2,2):
+				checkRow=moveRow
+				checkCol=moveCol
 				try:
 					while board.rows[NIE(checkRow+horizontalDirection*swap)][NIE(checkCol+verticalDirection*swap)].value==playerMark:
 						checkRow+=horizontalDirection*swap
 						checkCol+=verticalDirection*swap
-						count+=1					
+						count+=1
 				except IndexError:
 					pass
-			print("COUNT: "+str(count))
 			if count>=board.winSize:
 				return True
 	return False
