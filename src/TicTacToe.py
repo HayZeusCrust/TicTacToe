@@ -6,6 +6,7 @@ import sys
 # TODO : automatically change window to be correct size
 # TODO : turn into an exe that will open cmd on its own
 # TODO : Game with create a config file if there isn't one to save settings
+# TODO : Add match replay which save as a txt file
 
 def main():
 	#Welcome message
