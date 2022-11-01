@@ -1,9 +1,10 @@
-from board import Board,changeBoardSize
-from game import Game
 from getkey import getkey,keys
 import math
 import sys
 import os
+
+from board import Board,changeBoardSize
+from game import Game
 
 #Generate .exe: pyinstaller.exe --console --onefile TicTacToe.py
 
@@ -12,17 +13,21 @@ import os
 cmd = 'color 5E'     
 os.system(cmd)
 """
-# TODO : Title to change window title
+# TODO : Make options have scrollable settings
+# TODO : Rework menus to be a method
 # TODO : Make screen clear before prints
-# TODO : turn into an exe that will open cmd on its own
 # TODO : Game with create a config file if there isn't one to save settings
 # TODO : Add match replay which save as a txt file
 # TODO : Add player colors to settings
 # TODO : Add option to forfit game
 # TODO : Add setting to pick which Title header you want
+# TODO : turn into an exe that will open cmd on its own
 
 def main():
-	mainMenuOptions=["Single Player","Multiplayer","Options","Instructions","Credits","Quit Game"]
+	#Set window title
+	os.system('title Tic-Tac-Toe')
+	#Main menu options
+	mainMenuOptions=["Single Player","Multiplayer","Options","How to Play","Credits","Quit Game"]
 	selectedOption=0
 	#Continue program until user exits
 	while True:
@@ -52,17 +57,13 @@ def main():
 		#Resolve user input
 		match pressedKey:
 			#Move arrow up
-			case "w":
-				selectedOption=(selectedOption-1)%len(mainMenuOptions)
-			case keys.UP:
+			case "w"|keys.UP:
 				selectedOption=(selectedOption-1)%len(mainMenuOptions)
 			#Move arrow down
-			case "s":
-				selectedOption=(selectedOption+1)%len(mainMenuOptions)
-			case keys.DOWN:
+			case "s"|keys.DOWN:
 				selectedOption=(selectedOption+1)%len(mainMenuOptions)
 			#Handle selection
-			case keys.ENTER:
+			case keys.SPACE|keys.ENTER:
 				match selectedOption:
 					#Play game with 1 human and 1 AI
 					case 0:
@@ -94,6 +95,7 @@ def main():
 				pass
 
 def optionsMenu():
+	#Options options
 	optionsOptions=["Board Size: "+str(Board.numRows)+"x"+str(Board.numCols),"AI Difficulty","Main Menu"]
 	selectedOption=0
 	while True:
@@ -123,17 +125,13 @@ def optionsMenu():
 		#Resolve user input
 		match pressedKey:
 			#Move arrow up
-			case "w":
-				selectedOption=(selectedOption-1)%len(optionsOptions)
-			case keys.UP:
+			case "w"|keys.UP:
 				selectedOption=(selectedOption-1)%len(optionsOptions)
 			#Move arrow down
-			case "s":
-				selectedOption=(selectedOption+1)%len(optionsOptions)
-			case keys.DOWN:
+			case "s"|keys.DOWN:
 				selectedOption=(selectedOption+1)%len(optionsOptions)
 			#Handle selection
-			case keys.ENTER:
+			case keys.SPACE|keys.ENTER:
 				match selectedOption:
 					#Play game with 1 human and 1 AI
 					case 0:

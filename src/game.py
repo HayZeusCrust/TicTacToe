@@ -1,3 +1,6 @@
+from getkey import getkey,keys
+import os
+
 from location import Value
 from player import Player
 from board import Board
@@ -24,25 +27,57 @@ class Game:
 
 	#Play a game with the selected players
 	def play(self):
+		#Initialize game variables
 		currentPlayer=self.playerX
+		selectedRow=0
+		selectedCol=0
 		#Keep taking turns until the game is over
 		while True:
-			#show current board
-			self.board.printBoard()
-			#Take player move
-			moveValid=False
-			move=""
-			while not moveValid:
-				moveValid,error,move=isValidMove(input(str(currentPlayer.name)+" select a square to mark: row column\n"),self.board)
-				print(error)
-			self.board.rows[move[0]][move[1]].value=currentPlayer.mark
+			#Prepare the console
+			os.system("mode 60,30")
+			os.system('cls')
+			#Select your move
+			while True:
+				#Prepare the console
+				os.system("mode 60,30")
+				os.system('cls')
+				#Show current board
+				self.board.printBoard(selectedRow,selectedCol)
+				print(" "+str(currentPlayer.name)+" select an empty square to mark")
+				#Select a move
+				pressedKey=getkey()
+				match pressedKey:
+					#Move selection up
+					case "w"|keys.UP:
+						selectedRow=(selectedRow-1)%self.board.numRows
+					#Move selection down
+					case "s"|keys.DOWN:
+						selectedRow=(selectedRow+1)%self.board.numRows
+					#Move selection left
+					case "a"|keys.LEFT:
+						selectedCol=(selectedCol-1)%self.board.numCols
+					#Move selection right
+					case "d"|keys.RIGHT:
+						selectedCol=(selectedCol+1)%self.board.numCols
+					#Make selected move if available
+					case keys.SPACE|keys.ENTER:
+						if self.board.rows[selectedRow][selectedCol].value==Value.EMPTY:
+							break	
+					#Ignore all other keys
+					case _:
+						pass
+			#Apply move to board
+			self.board.rows[selectedRow][selectedCol].value=currentPlayer.mark
 			self.board.removeSpace()
-			if checkWin(move[0],move[1],self.board,currentPlayer.mark):
+			#Check if current player won
+			if checkWin(selectedRow,selectedCol,self.board,currentPlayer.mark):
 				# TODO : Victory screen
-				self.board.printBoard()
+				self.board.printBoard((-1),(-1))
 				break
+			#Check for tie
 			if self.board.remainingSpaces==0:
 				# TODO : Tie screen
+				self.board.printBoard((-1),(-1))
 				print("Yall sucked lol")
 				break
 			#Swap active players
@@ -50,29 +85,6 @@ class Game:
 				currentPlayer=self.playerO
 			else:
 				currentPlayer=self.playerX
-				
-#Validate move selection
-def isValidMove(move,board):
-	#Check cords are separated by a space
-	if " " not in move:
-		return False,"Row and column are not separated by a space",move
-	move=move.split(" ")
-	#Check only 2 cords are provided
-	if len(move)!=2:
-		return False,"Provide a row and a column",move
-	#Check only ints are provided
-	try:
-		move[0]=int(move[0])-1
-		move[1]=int(move[1])-1
-	except ValueError:
-		return False,"Row and column must be integers",move
-	#Check move is in board range
-	if not(0<=move[0]<Board.numRows and 0<=move[1]<Board.numCols):
-		return False,"Row and column are out of board range",move
-	#Check move space is empty
-	if board.rows[move[0]][move[1]].value!=Value.EMPTY:
-		return False,"Row and column are not empty",move
-	return True,"Valid move",move
 
 def checkWin(moveRow,moveCol,board,playerMark):
 	#Check in a row win

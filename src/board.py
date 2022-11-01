@@ -18,24 +18,20 @@ class Board:
 		self.rows=rows
 		self.remainingSpaces=Board.numRows*Board.numCols
 	
-	# TODO : Fix printing for 10x10 boards
 	#Prints the game board
-	def printBoard(self):
-		#Column headers
-		print("    ",end="")
-		for col in range(Board.numCols):
-			print(" "+str(col+1)+"  ",end="")
-		#Row seperator
-		print("\n   "+"-"*(4*Board.numCols+1))
+	def printBoard(self,selectedRow,selectedCol):
+		#Board start
+		print("-"*(4*Board.numCols+1))
 		#Print board row by row
-		for rowNum,row in enumerate(self.rows):
-			#Row headers
-			print(" "+str(rowNum+1)+" |",end="")
+		for row in self.rows:
 			#Print each column in a row
 			for location in row:
-				print(" "+str(location.value.value)+" |",end="")
+				if location.row==selectedRow and location.col==selectedCol:
+					print("|["+str(location.value.value)+"]",end="")
+				else:
+					print("| "+str(location.value.value)+" ",end="")
 			#Cap rows
-			print("\n   "+"-"*(4*Board.numCols+1))
+			print("|\n"+"-"*(4*Board.numCols+1))
 
 	def removeSpace(self):
 		self.remainingSpaces-=1
