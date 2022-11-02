@@ -15,7 +15,9 @@ os.system(cmd)
 """
 # TODO : Make options have scrollable settings
 # TODO : Rework menus to be a method
-# TODO : Make screen clear before prints
+# TODO : Finish game screen
+# TODO : Change board size prompts
+# TODO : Change enter name prompts
 # TODO : Game with create a config file if there isn't one to save settings
 # TODO : Add match replay which save as a txt file
 # TODO : Add player colors to settings
