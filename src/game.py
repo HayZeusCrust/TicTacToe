@@ -72,13 +72,22 @@ class Game:
 			#Check if current player won
 			if checkWin(selectedRow,selectedCol,self.board,currentPlayer.mark):
 				# TODO : Victory screen
+				#Prepare the console
+				os.system("mode 60,30")
+				os.system('cls')
+				#Print win screen
 				self.board.printBoard((-1),(-1))
+				input("Press enter to return to menu: ")
 				break
 			#Check for tie
 			if self.board.remainingSpaces==0:
 				# TODO : Tie screen
+				#Prepare the console
+				os.system("mode 60,30")
+				os.system('cls')
+				#Print tie screen
 				self.board.printBoard((-1),(-1))
-				print("Yall sucked lol")
+				input("Press enter to return to menu: ")
 				break
 			#Swap active players
 			if currentPlayer==self.playerX:
@@ -88,8 +97,23 @@ class Game:
 
 def checkWin(moveRow,moveCol,board,playerMark):
 	#Check in a row win
-	if checkRowWin(moveRow,moveCol,board,playerMark):
-		return True
+	for horizontalDirection in range(-1,1):
+		for verticalDirection in range(-1,2):
+			count=1
+			if verticalDirection==horizontalDirection==0:
+				break
+			for swap in range(-1,2,2):
+				checkRow=moveRow
+				checkCol=moveCol
+				try:
+					while board.rows[NIE(checkRow+horizontalDirection*swap)][NIE(checkCol+verticalDirection*swap)].value==playerMark:
+						checkRow+=horizontalDirection*swap
+						checkCol+=verticalDirection*swap
+						count+=1
+				except IndexError:
+					pass
+			if count>=board.winSize:
+				return True
 	#Non 3x3 wins
 	if board.numRows==board.numCols!=3:
 		#Check 4 corner win
@@ -108,27 +132,7 @@ def checkWin(moveRow,moveCol,board,playerMark):
 				except IndexError:
 					pass
 	return False
-	
-def checkRowWin(moveRow,moveCol,board,playerMark):
-	for horizontalDirection in range(-1,1):
-		for verticalDirection in range(-1,2):
-			count=1
-			if verticalDirection==horizontalDirection==0:
-				break
-			for swap in range(-1,2,2):
-				checkRow=moveRow
-				checkCol=moveCol
-				try:
-					while board.rows[NIE(checkRow+horizontalDirection*swap)][NIE(checkCol+verticalDirection*swap)].value==playerMark:
-						checkRow+=horizontalDirection*swap
-						checkCol+=verticalDirection*swap
-						count+=1
-				except IndexError:
-					pass
-			if count>=board.winSize:
-				return True
-	return False
-	
+
 #Negative Index Error
 def NIE(index):
 	if index<0:
