@@ -57,4 +57,3 @@ def changeBoardSize():
 		Board.winSize=3
 	else:
 		Board.winSize=4
-	

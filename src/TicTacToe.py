@@ -1,5 +1,4 @@
 from getkey import getkey,keys
-import math
 import sys
 import os
 
@@ -21,7 +20,7 @@ os.system(cmd)
 # TODO : Game with create a config file if there isn't one to save settings
 # TODO : Add match replay which save as a txt file
 # TODO : Add player colors to settings
-# TODO : Add option to forfit game
+# TODO : Add option to forfeit game
 # TODO : Add setting to pick which Title header you want
 # TODO : turn into an exe that will open cmd on its own
 
@@ -37,7 +36,7 @@ def main():
 		os.system("mode 60,30")
 		os.system('cls')
 		#Welcome message
-		print(\
+		print(
 			"╔══════════════════════════════════════════════════════════╗\n"+
 			"║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n"+
 			"║░█████╗█╗░███╗░░░░█████╗░███╗░░███╗░░░░█████╗░███╗░█████╗░║\n"+
@@ -105,7 +104,7 @@ def optionsMenu():
 		os.system("mode 60,30")
 		os.system('cls')
 		#Welcome message
-		print(\
+		print(
 			"╔══════════════════════════════════════════════════════════╗\n"+
 			"║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n"+
 			"║░░░░░░░░░░░███╗░████╗░█████╗█╗░███╗░█╗░░█╗░████╗░░░░░░░░░░║\n"+

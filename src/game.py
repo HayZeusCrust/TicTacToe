@@ -77,7 +77,9 @@ class Game:
 				os.system('cls')
 				#Print win screen
 				self.board.printBoard((-1),(-1))
-				input("Press enter to return to menu: ")
+				print("Press enter to return to main menu")
+				while getkey()!=keys.ENTER:
+					pass
 				break
 			#Check for tie
 			if self.board.remainingSpaces==0:
@@ -87,7 +89,9 @@ class Game:
 				os.system('cls')
 				#Print tie screen
 				self.board.printBoard((-1),(-1))
-				input("Press enter to return to menu: ")
+				print("Press enter to return to main menu")
+				while getkey()!=keys.ENTER:
+					pass
 				break
 			#Swap active players
 			if currentPlayer==self.playerX:
