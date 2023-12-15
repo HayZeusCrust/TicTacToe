@@ -39,14 +39,14 @@ class Board:
 def changeBoardSize():
 	newRowSize=(-1)
 	newColSize=(-1)
-	while not(3<=newRowSize<=10):
-		newRowSize=input("New number of board rows: (Min: 3, Max: 10)\n")
+	while not(3<=newRowSize<=9):
+		newRowSize=input("New number of board rows: (Min: 3, Max: 9)\n")
 		try:
 			newRowSize=int(newRowSize)
 		except ValueError:
 			newRowSize=(-1)
-	while not(3<=newColSize<=10):
-		newColSize=input("New number of board columns: (Min: 3, Max: 10)\n")
+	while not(3<=newColSize<=9):
+		newColSize=input("New number of board columns: (Min: 3, Max: 9)\n")
 		try:
 			newColSize=int(newColSize)
 		except ValueError:

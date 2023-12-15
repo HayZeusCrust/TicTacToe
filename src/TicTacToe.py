@@ -3,6 +3,7 @@ import sys
 import os
 
 from board import Board,changeBoardSize
+from menu import Title
 from game import Game
 
 #Generate .exe: pyinstaller.exe --console --onefile TicTacToe.py

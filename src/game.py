@@ -62,7 +62,7 @@ class Game:
 					#Make selected move if available
 					case keys.SPACE|keys.ENTER:
 						if self.board.rows[selectedRow][selectedCol].value==Value.EMPTY:
-							break	
+							break
 					#Ignore all other keys
 					case _:
 						pass
@@ -99,46 +99,46 @@ class Game:
 			else:
 				currentPlayer=self.playerX
 
-def checkWin(moveRow,moveCol,board,playerMark):
-	#Check in a row win
-	for horizontalDirection in range(-1,1):
-		for verticalDirection in range(-1,2):
-			count=1
-			if verticalDirection==horizontalDirection==0:
-				break
-			for swap in range(-1,2,2):
-				checkRow=moveRow
-				checkCol=moveCol
-				try:
-					while board.rows[NIE(checkRow+horizontalDirection*swap)][NIE(checkCol+verticalDirection*swap)].value==playerMark:
-						checkRow+=horizontalDirection*swap
-						checkCol+=verticalDirection*swap
-						count+=1
-				except IndexError:
-					pass
-			if count>=board.winSize:
+	def checkWin(moveRow,moveCol,board,playerMark):
+		#Check in a row win
+		for horizontalDirection in range(-1,1):
+			for verticalDirection in range(-1,2):
+				count=1
+				if verticalDirection==horizontalDirection==0:
+					break
+				for swap in range(-1,2,2):
+					checkRow=moveRow
+					checkCol=moveCol
+					try:
+						while board.rows[NIE(checkRow+horizontalDirection*swap)][NIE(checkCol+verticalDirection*swap)].value==playerMark:
+							checkRow+=horizontalDirection*swap
+							checkCol+=verticalDirection*swap
+							count+=1
+					except IndexError:
+						pass
+				if count>=board.winSize:
+					return True
+		#Non 3x3 wins
+		if board.numRows==board.numCols!=3:
+			#Check 4 corner win
+			if board.rows[0][0].value==playerMark and \
+			board.rows[0][board.numCols-1].value==playerMark and \
+			board.rows[board.numRows-1][0].value==playerMark and \
+			board.rows[board.numRows-1][board.numCols-1].value==playerMark:
 				return True
-	#Non 3x3 wins
-	if board.numRows==board.numCols!=3:
-		#Check 4 corner win
-		if board.rows[0][0].value==playerMark and \
-		board.rows[0][board.numCols-1].value==playerMark and \
-		board.rows[board.numRows-1][0].value==playerMark and \
-		board.rows[board.numRows-1][board.numCols-1].value==playerMark:
-			return True
-		#Check square win
-		for horizontalDirection in range(-1,2,2):
-			for verticalDirection in range(-1,2,2):
-				try:
-					if board.rows[NIE(moveRow+horizontalDirection)][NIE(moveCol+verticalDirection)].value==playerMark:
-						if board.rows[NIE(moveRow+horizontalDirection)][moveCol].value==board.rows[moveRow][NIE(moveCol+verticalDirection)].value==playerMark:
-							return True
-				except IndexError:
-					pass
-	return False
+			#Check square win
+			for horizontalDirection in range(-1,2,2):
+				for verticalDirection in range(-1,2,2):
+					try:
+						if board.rows[NIE(moveRow+horizontalDirection)][NIE(moveCol+verticalDirection)].value==playerMark:
+							if board.rows[NIE(moveRow+horizontalDirection)][moveCol].value==board.rows[moveRow][NIE(moveCol+verticalDirection)].value==playerMark:
+								return True
+					except IndexError:
+						pass
+		return False
 
-#Negative Index Error
-def NIE(index):
-	if index<0:
-		raise IndexError
-	return index
+	#Negative Index Error
+	def NIE(index):
+		if index<0:
+			raise IndexError
+		return index
