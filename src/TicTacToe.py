@@ -12,11 +12,13 @@ from game import Game
 cmd = 'color 5E'     
 os.system(cmd)
 """
+# TODO : Use prompt_toolkit to make the graphics not ass (https://github.com/trevorbayless/cli-chess) : Reference
 # TODO : Make options have scrollable settings
 # TODO : Rework menus to be a method
 # TODO : Finish game screen
 # TODO : Change board size prompts
 # TODO : Change enter name prompts
+# TODO : Add setuptools package to automatically install stuff
 # TODO : Game with create a config file if there isn't one to save settings
 # TODO : Add match replay which save as a txt file
 # TODO : Add player colors to settings
@@ -28,7 +30,7 @@ def main():
 	#Set window title
 	os.system('title Tic-Tac-Toe')
 	#Main menu options
-	mainMenuOptions=["Single Player","Multiplayer","Options","How to Play","Credits","Quit Game"]
+	mainMenuOptions=["Player VS   AI  ","Player VS Player","Settings","Instructions","Exit"]
 	selectedOption=0
 	#Continue program until user exits
 	while True:
@@ -81,12 +83,8 @@ def main():
 					case 3:
 						# TODO: Include instructions
 						print("Instructions WIP")
-					#Print credits
-					case 4:
-						# TODO: Make credits
-						print("Credits WIP")
 					#Exit game
-					case 5:
+					case 4:
 						sys.exit(0)
 					#This should like never happen
 					case _:
@@ -97,7 +95,7 @@ def main():
 
 def optionsMenu():
 	#Options options
-	optionsOptions=["Board Size: "+str(Board.numRows)+"x"+str(Board.numCols),"AI Difficulty","Main Menu"]
+	optionsOptions=["Board Size : "+str(Board.numRows)+"x"+str(Board.numCols),"AI Difficulty : ","Back"]
 	selectedOption=0
 	while True:
 		#Prepare the console
